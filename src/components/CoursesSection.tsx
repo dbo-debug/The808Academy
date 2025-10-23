@@ -46,16 +46,7 @@ export default function CoursesSection() {
       <p className="text-center text-gray-300 mb-8">
         Learn from working engineers with a polished, release-ready curriculum.
       </p>
-
-      {/* 808 LOGO */}
-      <div className="flex justify-center mb-12">
-        <img
-          src="/808logo.png" // or /logo-808-white.svg if that’s your preferred file
-          alt="The 808 Academy Logo"
-          className="h-24 w-auto drop-shadow-[0_0_20px_rgba(0,255,255,0.4)] hover:scale-105 transition-transform duration-300"
-        />
-      </div>
-
+          
       {/* COURSE CARDS */}
       <div className="grid sm:grid-cols-2 gap-8">
         {courses.map((c) => (

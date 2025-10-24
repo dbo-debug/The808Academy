@@ -1,45 +1,32 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
 
-type Props = {
-  children: React.ReactNode;
-  as?: keyof JSX.IntrinsicElements;
-  delayMs?: number; // stagger animation
+import { motion } from "framer-motion";
+import type { ReactNode } from "react";
+
+type RevealProps = {
+  children: ReactNode;
   className?: string;
+  /** delay in seconds */
+  delay?: number;
+  /** starting Y offset in px */
+  y?: number;
 };
 
-export default function Reveal({ children, as = "div", delayMs = 0, className = "" }: Props) {
-  const Tag = as as any;
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.unobserve(entry.target);
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
+export default function Reveal({
+  children,
+  className,
+  delay = 0,
+  y = 24,
+}: RevealProps) {
   return (
-    <Tag
-      ref={ref}
-      style={{ transitionDelay: `${delayMs}ms` }}
-      className={[
-        "transition-all duration-700 ease-out will-change-transform",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
-        className,
-      ].join(" ")}
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut", delay }}
     >
       {children}
-    </Tag>
+    </motion.div>
   );
 }

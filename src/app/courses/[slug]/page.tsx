@@ -2,8 +2,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-
 export default function CoursePage() {
   return (
     <main className="min-h-screen bg-black text-white px-6 py-16 flex flex-col items-start justify-center">

@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="border-t border-white/10 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-sm text-white/60">
-        <img src="/logo-808-cyan.svg" alt="808 Logo" className="h-10 w-auto mb-4" />
+        <image src="/logo-808-cyan.svg" alt="808 Logo" className="h-10 w-auto mb-4" />
           © {new Date().getFullYear()} The 808 Academy. All rights reserved.
         </div>
         <div className="text-sm text-white/60 flex items-center gap-4">

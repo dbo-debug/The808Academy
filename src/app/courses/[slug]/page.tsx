@@ -1,110 +1,98 @@
 /* eslint-disable react/no-unescaped-entities */
-"use client";
 
+import Link from "next/link";
 import Image from "next/image";
-export default function CoursePage() {
+import { COURSES } from "@/lib/courses";
+
+export default function CoursePage(props: any) {
+  const params = props?.params ?? {};
+  const slug = params?.slug as string | undefined;
+
+  const course = COURSES.find((c) => c.slug === slug);
+
+  if (!course) {
+    return (
+      <main className="min-h-screen flex items-center justify-center text-white">
+        <div className="text-center">
+          <h1 className="text-3xl font-semibold mb-2">Course not found</h1>
+          <p className="text-gray-300 mb-6">
+            We couldn’t find that course. Head back to see all available courses.
+          </p>
+          <Link
+            href="/courses"
+            className="inline-block rounded-full bg-teal-400 px-5 py-2 font-semibold text-black hover:bg-teal-300 transition"
+          >
+            View Courses
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main className="min-h-screen bg-black text-white px-6 py-16 flex flex-col items-start justify-center">
-      {/* Hero Section */}
-      <div className="max-w-3xl">
-        <h1 className="text-5xl font-bold mb-6">Welcome to The 808 Academy</h1>
-        <p className="text-lg text-gray-300 mb-6">
-          Learn the fundamentals of music production, mixing, and mastering from real engineers.
-          You&apos;ll get hands-on experience, pro-level techniques, and mentorship designed to
-          accelerate your growth as an artist or producer.
-        </p>
-        <Link
-          href="/apply"
-          className="bg-white text-black px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition"
-        >
-          Apply Now
-        </Link>
-      </div>
-
-      {/* Courses Section */}
-      <section className="mt-24 max-w-5xl w-full">
-        <h2 className="text-3xl font-semibold mb-8">Courses</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Course 1 */}
-          <div className="bg-zinc-900 p-6 rounded-2xl shadow-md">
-            <Image
-              src="/images/production.jpg"
-              alt="Production Course"
-              width={600}
-              height={400}
-              className="rounded-xl mb-4"
-            />
-            <h3 className="text-xl font-bold mb-2">Music Production 101</h3>
-            <p className="text-gray-400 mb-4">
-              Build your foundation — from beat making to songwriting and DAW workflow.
-            </p>
-            <Link href="/checkout?course=production" className="text-blue-400 hover:underline">
-              Enroll Now
+    <main className="min-h-screen px-6 py-16 text-white">
+      <section className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[2fr_1fr]">
+        <div>
+          <div className="mb-6">
+            <Link href="/courses" className="text-sm text-teal-300 hover:underline">
+              ← Back to Courses
             </Link>
           </div>
 
-          {/* Course 2 */}
-          <div className="bg-zinc-900 p-6 rounded-2xl shadow-md">
-            <Image
-              src="/images/mixing.jpg"
-              alt="Mixing Course"
-              width={600}
-              height={400}
-              className="rounded-xl mb-4"
-            />
-            <h3 className="text-xl font-bold mb-2">Mixing Essentials</h3>
-            <p className="text-gray-400 mb-4">
-              Learn to mix vocals, drums, and instruments like a pro using modern techniques.
-            </p>
-            <Link href="/checkout?course=mixing" className="text-blue-400 hover:underline">
-              Enroll Now
-            </Link>
-          </div>
+          <h1 className="text-4xl md:text-5xl font-bebas tracking-wide mb-2">
+            {course.title}
+          </h1>
+          {course.tagline ? <p className="text-gray-300 mb-6">{course.tagline}</p> : null}
 
-          {/* Course 3 */}
-          <div className="bg-zinc-900 p-6 rounded-2xl shadow-md">
-            <Image
-              src="/images/mastering.jpg"
-              alt="Mastering Course"
-              width={600}
-              height={400}
-              className="rounded-xl mb-4"
-            />
-            <h3 className="text-xl font-bold mb-2">Mastering Techniques</h3>
-            <p className="text-gray-400 mb-4">
-              Bring polish and loudness to your final mix with industry-standard mastering chains.
-            </p>
-            <Link href="/checkout?course=mastering" className="text-blue-400 hover:underline">
-              Enroll Now
-            </Link>
+          {course.heroImage ? (
+            <div className="relative w-full h-64 md:h-80 mb-8 overflow-hidden rounded-2xl border border-white/10">
+              <Image src={course.heroImage} alt={course.title} fill className="object-cover" priority />
+            </div>
+          ) : null}
+
+          <div className="prose prose-invert max-w-none">
+            <h2>What you’ll learn</h2>
+            <ul>
+              {"bullets" in course && Array.isArray((course as any).bullets) ? (
+                (course as any).bullets.map((b: string, i: number) => <li key={i}>{b}</li>)
+              ) : (
+                <>
+                  <li>Core concepts and repeatable workflows.</li>
+                  <li>Hands-on techniques you can apply immediately.</li>
+                  <li>Personalized feedback during the program.</li>
+                </>
+              )}
+            </ul>
           </div>
         </div>
-      </section>
 
-      {/* Pricing Section */}
-      <section className="mt-24 max-w-5xl w-full">
-        <h2 className="text-3xl font-semibold mb-8">Pricing</h2>
-        <ul className="space-y-4 text-gray-300">
-          <li>🎧 Basic Course – $199</li>
-          <li>🎚 Mixing & Mastering Course – $399</li>
-          <li>🏆 VIP Mentorship (1-on-1) – $999</li>
-        </ul>
-      </section>
+        <aside className="rounded-2xl border border-white/10 bg-white/5 p-6 h-fit">
+          <div className="text-sm text-gray-300 mb-2">Enrollment</div>
+          <div className="text-3xl font-semibold mb-4">
+            {"priceLabel" in course && (course as any).priceLabel
+              ? (course as any).priceLabel
+              : typeof (course as any).price === "number"
+              ? `$${(course as any).price.toLocaleString()}`
+              : "TBA"}
+          </div>
 
-      {/* CTA Section */}
-      <section className="mt-24 w-full flex flex-col items-start">
-        <h2 className="text-3xl font-semibold mb-4">Ready to Level Up?</h2>
-        <p className="text-gray-300 mb-8">
-          Join The 808 Academy and learn from real-world engineers. Whether you’re just starting or
-          refining your sound — we’ve got you covered.
-        </p>
-        <Link
-          href="/apply"
-          className="bg-white text-black px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition"
-        >
-          Apply Today
-        </Link>
+          <Link
+            href={`/checkout?course=${encodeURIComponent(course.slug)}`}
+            className="block text-center rounded-full bg-teal-400 px-5 py-3 font-semibold text-black hover:bg-teal-300 transition"
+          >
+            Enroll Now
+          </Link>
+
+          <div className="mt-6 text-sm text-gray-400">
+            <p>
+              Need help deciding?{" "}
+              <Link href="/apply" className="text-teal-300 hover:underline">
+                Apply
+              </Link>{" "}
+              and we’ll reach out.
+            </p>
+          </div>
+        </aside>
       </section>
     </main>
   );

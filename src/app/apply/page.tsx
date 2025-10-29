@@ -13,7 +13,7 @@ export default function ApplyPage() {
           <div>
             <h1 className="text-5xl font-bebas mb-3">Apply to Join</h1>
             <p className="text-gray-200 max-w-2xl">
-              Tell us your goals. We’ll match you to the right course or mentor and reply within 24 hours.
+              Tell us your goals. We&apos;ll match you to the right course or mentor and reply within 24 hours.
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
 // src/app/courses/page.tsx
 import Link from "next/link";
-import { courses } from "@/lib/courses";
+import { COURSES } from "../../lib/courses";
 
 export default function CoursesIndexPage() {
   return (
@@ -22,7 +22,7 @@ export default function CoursesIndexPage() {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-8">
-          {courses.map((c) => (
+          {COURSES.map((c) => (
             <Link
               key={c.slug}
               href={`/courses/${c.slug}`}

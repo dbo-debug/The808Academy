@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
 /**
@@ -30,9 +31,9 @@ export default function HomePage() {
           />
 
           <h1 className="max-w-3xl text-left text-5xl md:text-6xl font-semibold leading-tight">
-            Produce, mix &amp; release{" "}
-            <span className="text-[#00FFF7]">radio-ready</span> music from
-            anywhere.
+            Learn to Produce, mix, master, and release{" "}
+            <span className="text-[#00FFF7]">radio-ready</span> music from your
+            home studio.
           </h1>
 
           <p className="mt-6 max-w-2xl text-left text-lg text-gray-300">
@@ -72,11 +73,11 @@ export default function HomePage() {
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {/* Card 1 */}
             <CourseCard
-              title="Music Production in Logic / Pro Tools"
+              title="Music Production"
               tag="Production"
-              blurb="From sketch to finished demo. Song structure, drums, synths, vocals, and arrangement inside Logic or Pro Tools."
-              href="/courses/logic-production"
-              image="/courses.jpg"
+              blurb="From sketch to finished demo. Song structure, drums, synths, vocals, and arrangement."
+              href="/courses/music-production"
+              image="/MusicProduction.png"
             />
             {/* Card 2 */}
             <CourseCard
@@ -84,7 +85,7 @@ export default function HomePage() {
               tag="Creative"
               blurb="Creative remix techniques — tempo mapping, vocal chopping, re-harmonization, and dynamic reworks."
               href="/courses/remixing"
-              image="/courses.jpg"
+              image="/Remixing.png"
             />
             {/* Card 3 */}
             <CourseCard
@@ -92,15 +93,15 @@ export default function HomePage() {
               tag="Engineering"
               blurb="Low-end glue, vocal priority, depth, and loudness. Workflows that translate on every system."
               href="/courses/mixing"
-              image="/courses.jpg"
+              image="/Mixing.png"
             />
             {/* Card 4 */}
             <CourseCard
-              title="Mastering (Logic / Pro Tools)"
+              title="Mastering"
               tag="Finishing"
               blurb="Finalize your track for streaming or club — tone, dynamics, loudness targets, and deliverables."
               href="/courses/mastering"
-              image="/courses.jpg"
+              image="/Mastering.png"
             />
           </div>
         </div>
@@ -269,7 +270,7 @@ function PricingCard({
     <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur">
       <div
         className="h-40 w-full bg-cover bg-center"
-        style={{ backgroundImage: `url('${image}')` }}
+        style={{ backgroundImage: "url('" + image + "')" }}
         aria-hidden
       />
       <div className="p-6">

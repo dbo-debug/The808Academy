@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ApplyClient from "./ApplyClient";
 
 export const metadata = {
@@ -12,6 +13,13 @@ export const metadata = {
   },
 };
 
+// Prevent static prerender + satisfy useSearchParams in client
+export const dynamic = "force-dynamic"; // or: export const revalidate = 0;
+
 export default function Page() {
-  return <ApplyClient />;
+  return (
+    <Suspense fallback={<div className="min-h-[40vh]" />}>
+      <ApplyClient />
+    </Suspense>
+  );
 }

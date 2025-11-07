@@ -13,8 +13,7 @@ export const metadata = {
   },
 };
 
-// Prevent static prerender + satisfy useSearchParams in client
-export const dynamic = "force-dynamic"; // or: export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default function Page() {
   return (
